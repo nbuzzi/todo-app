@@ -6,15 +6,15 @@
       "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam ipsum vitae omnis voluptatibus facilis explicabo, sint doloribus similique aspernatur facere, excepturi quae quod. Debitis ipsam eaque placeat molestiae, temporibus architecto. Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam ipsum vitae omnis voluptatibus facilis explicabo, sint doloribus similique aspernatur facere, excepturi quae quod. Debitis ipsam eaque placeat molestiae, temporibus architecto.",
       "completed": false,
       "created": "2019-01-01T00:00:00.000Z",
-      "timeSpent": 84
+      "timeSpent": 100
     },
     {
       "id": "2",
       "title": "Test task 2",
       "description": "Test task 2 description",
-      "completed": false,
+      "completed": true,
       "created": "2019-01-01T00:00:00.000Z",
-      "timeSpent": 124
+      "timeSpent": 248
     },
     {
       "title": "Test task 3",
@@ -22,13 +22,13 @@
       "completed": false,
       "id": "e154c8ff-f7f1-476f-861f-9e479362cbf6",
       "createdAt": 1674315781342,
-      "timeSpent": 60
+      "timeSpent": 1222
     },
     {
       "title": "test 3",
       "description": "testeste",
       "completed": false,
-      "timeSpent": 0,
+      "timeSpent": 45,
       "id": "3cea7e83-b775-4870-845c-c05aef12bfd6",
       "createdAt": 1674315846647
     },
