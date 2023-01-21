@@ -13,7 +13,7 @@
   width: 0;
   height: 15px;
 
-  border-color: transparent transparent transparent #202020;
+  border-color: transparent transparent transparent white;
   cursor: pointer;
 
   border-style: solid;
@@ -33,4 +33,14 @@
 
 .button:hover {
   border-color: transparent transparent transparent #404040;
+}
+
+#task-card {
+  min-height: 400px;
+  max-height: 400px;
+}
+
+.responsive-content {
+  max-height: 300px !important;
+  overflow-y: auto !important;
 }

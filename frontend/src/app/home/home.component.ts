@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(protected taskService: TaskService) {}
 
   public get pending() {
-    return this.tasks.filter((t) => !t.completed);
+    return this.tasks.filter((t) => !t.completed && t.timeSpent === 0);
   }
 
   public get completed() {

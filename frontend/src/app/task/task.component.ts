@@ -30,7 +30,7 @@ export class TaskComponent {
   public get cardClass() {
     return this.task.completed
       ? "card bg-success text-light mb-4"
-      : "card mb-4";
+      : "card bg-dark text-white mb-4";
   }
 
   public get isCompleted() {
