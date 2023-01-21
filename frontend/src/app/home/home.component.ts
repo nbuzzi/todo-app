@@ -1,6 +1,7 @@
-import { Component, OnInit } from "@angular/core";
+import { ChangeDetectorRef, Component, OnInit } from "@angular/core";
 import { TaskService } from "../task.service";
 import { Task } from "../models/task";
+import { NgZone } from "@angular/core";
 
 @Component({
   selector: "app-home",
@@ -10,7 +11,7 @@ import { Task } from "../models/task";
 export class HomeComponent implements OnInit {
   public tasks: Task[] = [];
 
-  constructor(protected taskService: TaskService) {}
+  constructor(protected taskService: TaskService, protected zone: NgZone) {}
 
   public get pending() {
     return this.tasks.filter((t) => !t.completed && t.timeSpent === 0);
@@ -33,14 +34,18 @@ export class HomeComponent implements OnInit {
   handleOnComplete(task: Task) {
     const currentTask = this.tasks.find((t) => t.id === task.id);
     currentTask.completed = true;
-    // currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
     this.taskService.updateTask(currentTask).subscribe();
   }
 
   handleOnStopped(task: Task) {
     const currentTask = this.tasks.find((t) => t.id === task.id);
-    // currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
     this.taskService.updateTask(currentTask).subscribe();
+  }
+
+  handleOnDeleted(id: string) {
+    this.zone.run(() => {
+      this.tasks = this.tasks.filter((t) => t.id !== id);
+    });
   }
 
   onNewTaskCreated(task: Task) {

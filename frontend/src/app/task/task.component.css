@@ -44,3 +44,7 @@
   max-height: 300px !important;
   overflow-y: auto !important;
 }
+
+.custom-margin {
+  margin: -6px 0px 5px 0px;
+}

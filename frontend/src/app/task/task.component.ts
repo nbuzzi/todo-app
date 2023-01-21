@@ -15,6 +15,7 @@ export class TaskComponent {
 
   @Output() onComplete = new EventEmitter<Task>();
   @Output() onStopped = new EventEmitter<Task>();
+  @Output() onDeleted = new EventEmitter<string>();
 
   public playButtonClass = "button play";
   public stopped = true;
@@ -23,11 +24,15 @@ export class TaskComponent {
   public initialTimeSpent: number;
   public originalCounter: number;
   public done = false;
+  public currentTimeLeft: number = 1800;
 
   constructor(protected taskService: TaskService) {}
 
   ngOnInit() {
     this.initialTimeSpent = this.task.timeSpent || 0;
+    setInterval(() => {
+      this.currentTimeLeft--;
+    }, 1000);
   }
 
   public get cardClass() {
@@ -42,6 +47,10 @@ export class TaskComponent {
 
   public get timeSpent() {
     return moment.utc(this.initialTimeSpent * 1000).format("HH:mm:ss");
+  }
+
+  public get timeLeft() {
+    return moment.utc(this.currentTimeLeft * 1000).format("HH:mm:ss");
   }
 
   public get formattedTimeSpent() {
@@ -101,6 +110,34 @@ export class TaskComponent {
 
         if (result.isDismissed || result.isDenied) {
           this.done = false;
+        }
+      }
+    );
+  }
+
+  onDelete() {
+    const that = this;
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "warning",
+      html: "You want to delete this task?",
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Confirm!',
+      confirmButtonAriaLabel: "Thumbs up, task done!",
+      cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancel',
+      cancelButtonAriaLabel: "Thumbs down",
+    }).then(
+      (result: {
+        isConfirmed: boolean;
+        isDismissed: boolean;
+        isDenied: boolean;
+      }) => {
+        if (result.isConfirmed) {
+          that.taskService
+            .deleteTask(that.task.id)
+            .subscribe(() => that.onDeleted.emit(that.task.id));
         }
       }
     );
