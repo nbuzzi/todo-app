@@ -19,18 +19,17 @@ export class TimerComponent {
   @Output() onCompleted = new EventEmitter();
   @Output() onChange = new EventEmitter<number>();
 
-  @Input() time: number;
+  @Input() currentTime = 0;
   @Input() started = false;
   @Input() paused = false;
   @Input() stopped = true;
 
-  public currentTime = 0;
   public limit: number;
 
   constructor() {
     const now = new Date();
-    // const countDown = moment(now).add(30, "minutes");
-    const countDown = moment(now).add(1, "minute");
+    const countDown = moment(now).add(30, "minutes");
+    // const countDown = moment(now).add(1, "minute");
     this.limit = moment(countDown).diff(now, "seconds") + 1;
   }
 

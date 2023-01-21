@@ -1,9 +1,53 @@
 <div class="row mt-4 mb-4">
-  <div *ngFor="let task of tasks" class="col-3">
+  <h2 class="mt-2 mb-2">Pending Tasks:</h2>
+  <div *ngIf="pending.length === 0" class="col-12 mt-2 mb-4 text-center">
+    <h5 class="text-info">No pending tasks</h5>
+  </div>
+
+  <div *ngFor="let task of pending" class="col-3">
     <task
       [task]="task"
       (onComplete)="handleOnComplete($event)"
       (onStopped)="handleOnStopped($event)"
     ></task>
+  </div>
+
+  <hr />
+
+  <h2 class="mt-2 mb-2">In Progress Tasks:</h2>
+  <div *ngIf="inProgress.length === 0" class="col-12 mt-2 mb-4 text-center">
+    <h5 class="text-info">No in progress tasks</h5>
+  </div>
+
+  <div *ngFor="let task of inProgress" class="col-3">
+    <task
+      [task]="task"
+      (onComplete)="handleOnComplete($event)"
+      (onStopped)="handleOnStopped($event)"
+    ></task>
+  </div>
+
+  <hr />
+
+  <h2 class="mt-2 mb-2">Completed Tasks:</h2>
+  <div *ngIf="completed.length === 0" class="col-12 mt-2 mb-4 text-center">
+    <h5 class="text-info">No completed tasks</h5>
+  </div>
+
+  <div *ngFor="let task of completed" class="col-3 mt-2 mb-2">
+    <task
+      [task]="task"
+      (onComplete)="handleOnComplete($event)"
+      (onStopped)="handleOnStopped($event)"
+    ></task>
+  </div>
+
+  <hr />
+  <div class="mt-4">
+    <h2>New Task</h2>
+
+    <div class="col-3">
+      <new-task (onCreated)="onNewTaskCreated($event)"></new-task>
+    </div>
   </div>
 </div>

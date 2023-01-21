@@ -7,9 +7,11 @@
   </div>
   <div class="card-footer">
     <div class="row">
-      <div class="col-12 d-flex justify-content-center">
+      <div
+        *ngIf="!isCompleted && started"
+        class="col-12 d-flex justify-content-center mb-2"
+      >
         <timer
-          *ngIf="!isCompleted"
           [started]="started"
           [paused]="paused"
           [stopped]="stopped"
@@ -30,7 +32,8 @@
         ></button>
       </div>
       <div class="col-10">
-        <p>Time Spent: ({{ getTimeSpent() }})</p>
+        <p *ngIf="started">Time Spent: ({{ timeSpent }})</p>
+        <p *ngIf="!started">Total Time Spent: ({{ formattedTimeSpent }})</p>
       </div>
     </div>
   </div>

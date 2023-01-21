@@ -12,6 +12,18 @@ export class HomeComponent implements OnInit {
 
   constructor(protected taskService: TaskService) {}
 
+  public get pending() {
+    return this.tasks.filter((t) => !t.completed);
+  }
+
+  public get completed() {
+    return this.tasks.filter((t) => t.completed);
+  }
+
+  public get inProgress() {
+    return this.tasks.filter((t) => !t.completed && t.timeSpent > 0);
+  }
+
   ngOnInit() {
     this.taskService.getTasks().subscribe((response) => {
       this.tasks = response.json();
@@ -21,13 +33,17 @@ export class HomeComponent implements OnInit {
   handleOnComplete(task: Task) {
     const currentTask = this.tasks.find((t) => t.id === task.id);
     currentTask.completed = true;
-    currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
+    // currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
     this.taskService.updateTask(currentTask).subscribe();
   }
 
   handleOnStopped(task: Task) {
     const currentTask = this.tasks.find((t) => t.id === task.id);
-    currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
+    // currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
     this.taskService.updateTask(currentTask).subscribe();
+  }
+
+  onNewTaskCreated(task: Task) {
+    this.tasks.push(task);
   }
 }
