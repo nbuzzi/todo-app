@@ -1,0 +1,9 @@
+<div class="row mt-4 mb-4">
+  <div *ngFor="let task of tasks" class="col-3">
+    <task
+      [task]="task"
+      (onComplete)="handleOnComplete($event)"
+      (onStopped)="handleOnStopped($event)"
+    ></task>
+  </div>
+</div>
