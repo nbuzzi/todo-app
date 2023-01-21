@@ -23,13 +23,14 @@ export class TimerComponent {
   @Input() started = false;
   @Input() paused = false;
   @Input() stopped = true;
-  @Input() pieTime: number;
-  public limit = 1800; // 30 minutes
+  public pieTime: number;
+  public limit: number;
 
   constructor() {
     const now = new Date();
-    // const countDown = 1800; // 30 minutes
-    // const countDown = moment(now).add(1, "minute");
+    const countDown = moment(now).add(30, "minutes");
+    this.limit = moment(countDown).diff(now, "seconds");
+    this.pieTime = this.limit;
   }
 
   ngOnChanges() {

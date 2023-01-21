@@ -22,13 +22,13 @@
       "completed": false,
       "id": "e154c8ff-f7f1-476f-861f-9e479362cbf6",
       "createdAt": 1674315781342,
-      "timeSpent": 1222
+      "timeSpent": 1352
     },
     {
       "title": "test 3",
       "description": "testeste",
       "completed": false,
-      "timeSpent": 45,
+      "timeSpent": 100,
       "id": "3cea7e83-b775-4870-845c-c05aef12bfd6",
       "createdAt": 1674315846647
     },
