@@ -21,12 +21,13 @@ export class HomeComponent implements OnInit {
   handleOnComplete(task: Task) {
     const currentTask = this.tasks.find((t) => t.id === task.id);
     currentTask.completed = true;
+    currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
     this.taskService.updateTask(currentTask).subscribe();
   }
 
   handleOnStopped(task: Task) {
     const currentTask = this.tasks.find((t) => t.id === task.id);
-    currentTask.timeSpent = task.timeSpent;
+    currentTask.timeSpent = (currentTask.timeSpent || 0) + task.timeSpent;
     this.taskService.updateTask(currentTask).subscribe();
   }
 }
