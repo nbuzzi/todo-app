@@ -3,6 +3,8 @@ import { Task } from "../models/task";
 import { TaskService } from "../task.service";
 import * as moment from "moment";
 
+declare var Swal: any;
+
 @Component({
   selector: "task",
   templateUrl: "./task.component.html",
@@ -20,6 +22,7 @@ export class TaskComponent {
   public started = false;
   public initialTimeSpent: number;
   public originalCounter: number;
+  public done = false;
 
   constructor(protected taskService: TaskService) {}
 
@@ -67,5 +70,39 @@ export class TaskComponent {
     this.started = false;
     this.task.timeSpent = (this.task.timeSpent || 0) + this.initialTimeSpent;
     this.onStopped.emit(this.task);
+  }
+
+  confirm() {
+    Swal.fire({
+      title: "Are you sure?",
+      icon: "info",
+      html: "You want to mark this task as completed?",
+      showCloseButton: true,
+      showCancelButton: true,
+      focusConfirm: false,
+      confirmButtonText: '<i class="fa fa-thumbs-up"></i> Confirm!',
+      confirmButtonAriaLabel: "Thumbs up, task done!",
+      cancelButtonText: '<i class="fa fa-thumbs-down"></i> Cancel',
+      cancelButtonAriaLabel: "Thumbs down",
+    }).then(
+      (result: {
+        isConfirmed: boolean;
+        isDismissed: boolean;
+        isDenied: boolean;
+      }) => {
+        if (result.isConfirmed) {
+          this.task.completed = true;
+          this.task.timeSpent =
+            (this.task.timeSpent || 0) + this.initialTimeSpent;
+          this.taskService
+            .updateTask(this.task)
+            .subscribe(() => (this.done = true));
+        }
+
+        if (result.isDismissed || result.isDenied) {
+          this.done = false;
+        }
+      }
+    );
   }
 }

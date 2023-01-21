@@ -1,6 +1,19 @@
 <div id="task-card" [class]="cardClass">
   <div class="card-header">
     <h5 class="card-title">{{ task.title }}</h5>
+    <div *ngIf="!task.completed" class="row">
+      <div class="col-12 text-center">
+        <label class="form-check-label text-info" for="completed"
+          >Mark as completed</label
+        >
+        <input
+          type="checkbox"
+          class="form-check-input"
+          [(ngModel)]="done"
+          (click)="confirm()"
+        />
+      </div>
+    </div>
   </div>
   <div class="card-body responsive-content">
     <p class="card-text">{{ task.description }}</p>
